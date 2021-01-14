@@ -5,6 +5,8 @@ import Container from '../components/container'
 import GraphQLErrorList from '../components/graphql-error-list'
 import SEO from '../components/seo'
 import Layout from '../containers/layout'
+import OrderStyles from '../components/OrderStyles'
+import useForm from '../utils/useForm'
 
 import { responsiveTitle1 } from '../components/typography.module.css'
 
@@ -19,6 +21,11 @@ export const query = graphql`
 
 const ContactPage = props => {
   const { data, errors } = props
+  const { values, updateValue } = useForm({
+    name: '',
+    email: '',
+    mapleSyrup: ''
+  })
 
   if (errors) {
     return (
@@ -42,6 +49,50 @@ const ContactPage = props => {
       <Container>
         <h1 className={responsiveTitle1}>{page.title}</h1>
         <BlockContent blocks={page._rawBody || []} />
+        <OrderStyles>
+          <fieldset>
+            <legend>Your Info</legend>
+            <label htmlFor="name">
+              Name
+              <input
+                type="text"
+                name="name"
+                id="name"
+                value={'...'}
+                value={values.name}
+                onChange={updateValue}
+              />
+            </label>
+            <label htmlFor="email">
+              Email
+              <input
+                type="email"
+                name="email"
+                id="email"
+                value={'...'}
+                value={values.email}
+                onChange={updateValue}
+              />
+            </label>
+            <label htmlFor="message">
+              How do you want me to help?
+              <input
+                type="text"
+                name="message"
+                id="message"
+                value={'...'}
+                value={values.message}
+                onChange={updateValue}
+              />
+            </label>
+          </fieldset>
+          <fieldset>
+            <div aria-live="polite" aria-atomic="true">
+              {error ? <p>Error: {error}</p> : ''}
+            </div>
+            <button type="submit">Get in touch</button>
+          </fieldset>
+        </OrderStyles>
       </Container>
     </Layout>
   )
