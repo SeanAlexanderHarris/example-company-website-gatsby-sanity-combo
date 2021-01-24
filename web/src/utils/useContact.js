@@ -19,7 +19,8 @@ export default async function useContact(event, values) {
     },
     body: JSON.stringify(body)
   })
-  const text = JSON.parse(await res.text())
+  console.log(res)
+  // const text = JSON.parse(await res)
 
   // check if everything worked
   if (res.status >= 400 && res.status < 600) {

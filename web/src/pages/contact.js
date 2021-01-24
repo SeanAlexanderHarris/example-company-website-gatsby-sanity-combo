@@ -55,7 +55,7 @@ const ContactPage = props => {
           method="POST"
           data-netlify="true"
           action="/thankyou"
-          onSubmit={useContact}
+          onSubmit={event => useContact(event, values)}
         >
           <input type="hidden" name="form-name" value="Contact Form" />
           <div>

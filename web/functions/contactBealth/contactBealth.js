@@ -1,4 +1,4 @@
-exports.handler = async event => {
+exports.handler = async (event, context) => {
   function generateContactEmail(name, emailAddress) {
     return `<div>
     <h2>You've got an enquiry lead from the blog </h2>
