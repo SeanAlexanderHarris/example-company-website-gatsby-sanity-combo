@@ -10,7 +10,7 @@ const ThankYouPage = () => {
     <Layout>
       <SEO title={thankyou} />
       <Container>
-        <h1 className={responsiveTitle1}>{thankyou}</h1>
+        <h1 className={responsiveTitle1}>Thanks :) I'll be in touch 📱</h1>
         <p>Thank you!</p>
       </Container>
     </Layout>
