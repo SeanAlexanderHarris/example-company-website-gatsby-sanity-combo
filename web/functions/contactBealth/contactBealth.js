@@ -1,4 +1,6 @@
 exports.handler = async (event, context) => {
+  console.log('EVENT', event)
+
   function generateContactEmail(name, emailAddress) {
     return `<div>
     <h2>You've got an enquiry lead from the blog </h2>
@@ -13,14 +15,14 @@ exports.handler = async (event, context) => {
   if (body.mapleSyrup) {
     return {
       statusCode: 400,
-      body: JSON.stringify({ message: 'Boop beep bop zzzzstt good bye' })
+      body: JSON.stringify({ message: 'Boop beep bop zzzzstt good bye..' })
     }
   }
   // Validate the data coming in is correct
   const requiredFields = ['name', 'email']
 
   for (const field of requiredFields) {
-    console.log(`Checking that ${field} is good`)
+    console.log(`Validating ${field} : ${body[field]} is truthy..`)
     if (!body[field]) {
       return {
         statusCode: 400,
@@ -33,27 +35,28 @@ exports.handler = async (event, context) => {
 
   // send the email
   const sgMail = require('@sendgrid/mail')
-  sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+  sgMail.setApiKey(`${process.env.SENDGRID_API_KEY}`)
   const msg = {
-    to: 'sean.alexander.harris.29@googlemail.com', // Change to your recipient
-    from: 'The Bealth Blog <info@chrisbellpt.com>', // Change to your verified sender
+    to: 'sean.alexander.29@icloud.com', // Change to your recipient
+    from: 'sean.alexander.harris.29@googlemail.com', // Change to your verified sender
     subject: 'Bealthy Blog Enquiry Lead',
     text: 'and easy to do anywhere, even with Node.js',
-    html: generateContactEmail(body[name], body[email])
+    html: generateContactEmail(body['name'], body['email'])
   }
-  sgMail
-    .send(msg)
-    .then(() => {
-      console.log('Email sent')
-    })
-    .then(res => {
-      return {
-        statusCode: 200,
-        body: JSON.stringify({ message: 'Success' }),
-        response: res
-      }
-    })
-    .catch(error => {
-      console.error(error)
-    })
+
+  const response = await sgMail.send(msg)
+
+  if (response.status >= 400 && response.status < 600) {
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ message: 'Success' }),
+      rawResponse: response
+    }
+  } else {
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ message: 'Failure' }),
+      rawResponse: response
+    }
+  }
 }

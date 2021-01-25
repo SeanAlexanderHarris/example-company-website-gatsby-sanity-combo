@@ -5,21 +5,21 @@ export default async function useContact(event, values) {
   //   setMessage('Go eat!')
 
   // gather all the data
-  const body = {
+  const formValuesDto = {
     name: values.name,
     email: values.email,
     mapleSyrup: values.mapleSyrup
   }
 
   // 4. Send this data to the serverless function when they check out
-  const res = await fetch(`${process.env.GATSBY_SERVERLESS_BASE}/contactBealth`, {
+  const res = await fetch(`/.netlify/functions/contactBealth`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(body)
+    body: JSON.stringify(formValuesDto)
   })
-  console.log(res)
+
   // const text = JSON.parse(await res)
 
   // check if everything worked
