@@ -53,7 +53,7 @@ const ContactPage = props => {
         <form
           name="Contact Form"
           method="POST"
-          data-netlify="true"
+          // data-netlify="true"
           action="/thankyou"
           onSubmit={event => useContact(event, values)}
         >
