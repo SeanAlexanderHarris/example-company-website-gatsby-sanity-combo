@@ -44,6 +44,8 @@ exports.handler = async (event, context) => {
     html: generateContactEmail(body['name'], body['email'])
   }
 
+  console.log(msg)
+
   const response = await sgMail.send(msg)
 
   if (response.status >= 400 && response.status < 600) {
