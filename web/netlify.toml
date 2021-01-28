@@ -1,5 +1,2 @@
 [build]
-  base = "web/"
-  publish = "public"
-  functions = "functions"
-  command = "npm run build"
+  functions = "functions/"
