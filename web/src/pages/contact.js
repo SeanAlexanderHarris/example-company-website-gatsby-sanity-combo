@@ -16,6 +16,14 @@ export const query = graphql`
       title
       _rawBody
     }
+    services: allSanityService {
+      edges {
+        node {
+          id
+          title
+        }
+      }
+    }
   }
 `
 
@@ -24,6 +32,9 @@ const ContactPage = props => {
   const { values, updateValues } = useForm({
     name: '',
     email: '',
+    message: '',
+    contactNumber: '',
+    services: {},
     mapleSyrup: ''
   })
 
@@ -36,10 +47,17 @@ const ContactPage = props => {
   }
 
   const page = data.page
+  const services = data.services.edges
 
   if (!page) {
     throw new Error(
       'Missing "Contact" page data. Open the studio at http://localhost:3333 and add "Contact" page data and restart the development server.'
+    )
+  }
+
+  if (!services) {
+    throw new Error(
+      'Missing "services" data. Open the studio at http://localhost:3333 and add "Services" data and restart the development server.'
     )
   }
 
@@ -53,7 +71,6 @@ const ContactPage = props => {
         <form
           name="Contact Form"
           method="POST"
-          // data-netlify="true"
           action="/thankyou"
           onSubmit={event => useContact(event, values)}
         >
@@ -78,6 +95,39 @@ const ContactPage = props => {
               onChange={updateValues}
             />
           </div>
+          <div>
+            <label>What's the best number to reach you on?:</label>
+            <input
+              type="text"
+              name="contactNumber"
+              value={'...'}
+              value={values.contactNumber}
+              onChange={updateValues}
+            />
+          </div>
+          <div>
+            <label>Message:</label>
+            <input
+              type="text"
+              name="message"
+              value={'...'}
+              value={values.message}
+              onChange={updateValues}
+            />
+          </div>
+          <label>What would you like me to work with you on?</label>
+          {services.map(node => (
+            <div key={node.node.id}>
+              <label>{`Service - ${node.node.title}`}</label>
+              <input
+                type="checkbox"
+                name={`service ${node.node.title}`}
+                value={'...'}
+                value={values.services}
+                onChange={updateValues}
+              />
+            </div>
+          ))}
           <button type="submit">Send</button>
         </form>
       </Container>

@@ -1,10 +1,13 @@
 exports.handler = async (event, context) => {
   console.log('EVENT', event)
 
-  function generateContactEmail(name, emailAddress) {
+  function generateContactEmail(name, emailAddress, contactNumber, message, services) {
     return `<div>
     <h2>You've got an enquiry lead from the blog </h2>
-    <p>Get in touch with ${name} at ${emailAddress} pronto hombre..</p>
+    <p>Get in touch with ${name} at ${emailAddress} or on ${contactNumber} pronto hombre..</p>
+    <p>Here's their message:</p>
+    <p>${message}</p>
+    <p>They've indicated interest in ${services}</p>
     <p>Best Regards,</p>
     <p>The Bealth Blog Robot</p>
   </div>`
@@ -19,7 +22,7 @@ exports.handler = async (event, context) => {
     }
   }
   // Validate the data coming in is correct
-  const requiredFields = ['name', 'email']
+  const requiredFields = ['name', 'emailAddress']
 
   for (const field of requiredFields) {
     console.log(`Validating ${field} : ${body[field]} is truthy..`)
@@ -37,16 +40,22 @@ exports.handler = async (event, context) => {
   const sgMail = require('@sendgrid/mail')
   sgMail.setApiKey(`${process.env.SENDGRID_API_KEY}`)
   const msg = {
-    to: 'sean.alexander.29@icloud.com', // Change to your recipient
+    to: 'chrisbellpt@info.com', // Change to your recipient
     from: 'sean.alexander.harris.29@googlemail.com', // Change to your verified sender
-    subject: 'Bealthy Blog Enquiry Lead',
-    text: 'and easy to do anywhere, even with Node.js',
-    html: generateContactEmail(body['name'], body['email'])
+    subject: 'Bealthy Blog Enquiry',
+    text: 'Early to bed & early to rise makes a man healthy, bealthy, & wise',
+    html: generateContactEmail(
+      body['name'],
+      body['emailAddress'],
+      body['contactNumber'],
+      body['message'],
+      body['services']
+    )
   }
 
-  console.log(msg)
-
   const response = await sgMail.send(msg)
+
+  console.log('RESPONSE', response)
 
   if (response.status >= 400 && response.status < 600) {
     return {

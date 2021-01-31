@@ -4,10 +4,18 @@ export default async function useContact(event, values) {
   //   setError(null)
   //   setMessage('Go eat!')
 
+  const selectedServices = ``
+  for (const [key, value] of Object.entries(values.services)) {
+    services = value ? `${services} & ${key}` : services
+  }
+
   // gather all the data
   const formValuesDto = {
     name: values.name,
-    email: values.email,
+    emailAddress: values.email,
+    message: values.message,
+    contactNumber: values.contactNumber,
+    services: selectedServices,
     mapleSyrup: values.mapleSyrup
   }
 
@@ -19,8 +27,6 @@ export default async function useContact(event, values) {
     },
     body: JSON.stringify(formValuesDto)
   })
-
-  // const text = JSON.parse(await res)
 
   // check if everything worked
   if (res.status >= 400 && res.status < 600) {
