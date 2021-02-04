@@ -26,12 +26,6 @@ const ContactStyles = styled.form`
     label + label {
       margin-top: 1rem;
     }
-    &.order,
-    &.menu {
-      grid-column: span 1;
-      /* Chrome is weird about Grid and fieldsets, so we add a fixed height to fix it :)  */
-      height: 600px;
-    }
   }
   .mapleSyrup {
     display: none;
