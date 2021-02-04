@@ -7,6 +7,7 @@ import SEO from '../components/seo'
 import Layout from '../containers/layout'
 import useForm from '../utils/useForm'
 import useContact from '../utils/useContact'
+import ContactStyles from '../styles/ContactStyles'
 
 import { responsiveTitle1 } from '../components/typography.module.css'
 
@@ -68,68 +69,74 @@ const ContactPage = props => {
         <h1 className={responsiveTitle1}>{page.title}</h1>
         <BlockContent blocks={page._rawBody || []} />
 
-        <form
+        <ContactStyles
           name="Contact Form"
           method="POST"
           action="/thankyou"
           onSubmit={event => useContact(event, values)}
         >
-          <input type="hidden" name="form-name" value="Contact Form" />
-          <div>
-            <label>Name:</label>
-            <input
-              type="text"
-              name="name"
-              value={'...'}
-              value={values.name}
-              onChange={updateValues}
-            />
-          </div>
-          <div>
-            <label>Your Email:</label>
-            <input
-              type="email"
-              name="email"
-              value={'...'}
-              value={values.email}
-              onChange={updateValues}
-            />
-          </div>
-          <div>
-            <label>What's the best number to reach you on?:</label>
-            <input
-              type="text"
-              name="contactNumber"
-              value={'...'}
-              value={values.contactNumber}
-              onChange={updateValues}
-            />
-          </div>
-          <div>
-            <label>Message:</label>
-            <input
-              type="text"
-              name="message"
-              value={'...'}
-              value={values.message}
-              onChange={updateValues}
-            />
-          </div>
-          <label>What would you like me to work with you on?</label>
-          {services.map(node => (
-            <div key={node.node.id}>
-              <label>{`Service - ${node.node.title}`}</label>
+          <fieldset className="menu">
+            <input type="hidden" name="form-name" value="Contact Form" />
+            <div>
+              <label>I'm Chris :) What's your name?</label>
               <input
-                type="checkbox"
-                name={`service ${node.node.title}`}
+                type="text"
+                name="name"
                 value={'...'}
-                value={values.services}
+                value={values.name}
                 onChange={updateValues}
               />
             </div>
-          ))}
-          <button type="submit">Send</button>
-        </form>
+
+            <div>
+              <label>What's your email?</label>
+              <input
+                type="email"
+                name="email"
+                value={'...'}
+                value={values.email}
+                onChange={updateValues}
+              />
+            </div>
+            <div>
+              <label>What's the best number to reach you on?</label>
+              <input
+                type="text"
+                name="contactNumber"
+                value={'...'}
+                value={values.contactNumber}
+                onChange={updateValues}
+              />
+            </div>
+            <div>
+              <label>Tell me a little about what you'd like to work on?</label>
+              <textarea
+                id="subject"
+                type="text"
+                name="message"
+                placeholder="Write something.."
+                value={'...'}
+                value={values.message}
+                onChange={updateValues}
+              ></textarea>
+            </div>
+
+            <label>What are you interested in?</label>
+            {services.map(node => (
+              <div key={node.node.id}>
+                <label>{`${node.node.title}`}</label>
+                <input
+                  type="checkbox"
+                  name={`service ${node.node.title}`}
+                  value={'...'}
+                  value={values.services}
+                  onChange={updateValues}
+                />
+              </div>
+            ))}
+            <button type="submit">Send</button>
+          </fieldset>
+        </ContactStyles>
       </Container>
     </Layout>
   )
