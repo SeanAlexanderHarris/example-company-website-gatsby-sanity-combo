@@ -85,6 +85,7 @@ const ContactPage = props => {
                 value={'...'}
                 value={values.name}
                 onChange={updateValues}
+                required
               />
             </div>
 
