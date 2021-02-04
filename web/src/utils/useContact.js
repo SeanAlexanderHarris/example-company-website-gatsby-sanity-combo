@@ -1,8 +1,5 @@
 export default async function useContact(event, values) {
   event.preventDefault()
-  //   setLoading(true)
-  //   setError(null)
-  //   setMessage('Go eat!')
 
   const selectedServices = ``
   for (const [key, value] of Object.entries(values.services)) {
@@ -31,12 +28,7 @@ export default async function useContact(event, values) {
   // check if everything worked
   if (res.status >= 400 && res.status < 600) {
     console.log("It didn't work..")
-    // setLoading(false) // turn off loading
-    // setError(text.message)
   } else {
     console.log('It worked..')
-    // it worked!
-    // setLoading(false)
-    // setMessage('Success! Come on down for your pizza')
   }
 }
