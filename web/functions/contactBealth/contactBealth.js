@@ -1,5 +1,5 @@
 exports.handler = async (event, context) => {
-  console.log('EVENT', event)
+  console.log('Handling event:', event)
 
   function generateContactEmail(name, emailAddress, contactNumber, message, services) {
     return `<div>
@@ -18,7 +18,7 @@ exports.handler = async (event, context) => {
   if (body.mapleSyrup) {
     return {
       statusCode: 400,
-      body: JSON.stringify({ message: 'Boop beep bop zzzzstt good bye..' })
+      body: JSON.stringify({ message: 'Honey pot field hit by a bot..' })
     }
   }
   // Validate the data coming in is correct
@@ -53,9 +53,9 @@ exports.handler = async (event, context) => {
     )
   }
 
-  const response = await sgMail.send(msg)
+  const response = sgMail.send(msg)
 
-  console.log('RESPONSE', response)
+  console.log('sendGridResponse:', response)
 
   if (response.status >= 400 && response.status < 600) {
     return {
