@@ -1,6 +1,5 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import BlockContent from '../components/block-content'
 import Container from '../components/container'
 import GraphQLErrorList from '../components/graphql-error-list'
 import SEO from '../components/seo'
