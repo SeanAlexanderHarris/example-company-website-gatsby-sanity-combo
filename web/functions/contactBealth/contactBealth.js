@@ -1,13 +1,12 @@
 exports.handler = async (event, context) => {
-  console.log('Handling event:', event)
+  console.log('Handling contact bealth event:', event)
 
-  function generateContactEmail(name, emailAddress, contactNumber, message, services) {
+  function generateContactEmail(name, emailAddress, contactNumber, message) {
     return `<div>
     <h2>You've got an enquiry lead from the blog </h2>
     <p>Get in touch with ${name} at ${emailAddress} or on ${contactNumber} pronto hombre..</p>
     <p>Here's their message:</p>
     <p>${message}</p>
-    <p>They've indicated interest in ${services}</p>
     <p>Best Regards,</p>
     <p>The Bealth Blog Robot</p>
   </div>`
@@ -42,14 +41,13 @@ exports.handler = async (event, context) => {
   const msg = {
     to: 'chrisbellpt@info.com', // Change to your recipient
     from: 'sean.alexander.harris.29@googlemail.com', // Change to your verified sender
-    subject: 'Bealthy Blog Enquiry',
+    subject: 'bealthy.com Enquiry',
     text: 'Early to bed & early to rise makes a man healthy, bealthy, & wise',
     html: generateContactEmail(
       body['name'],
       body['emailAddress'],
       body['contactNumber'],
-      body['message'],
-      body['services']
+      body['message']
     )
   }
 

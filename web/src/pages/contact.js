@@ -7,9 +7,9 @@ import SEO from '../components/seo'
 import Layout from '../containers/layout'
 import useForm from '../utils/useForm'
 import useContact from '../utils/useContact'
-import ContactStyles from '../styles/ContactStyles'
 
 import { responsiveTitle1 } from '../components/typography.module.css'
+import ContactStyles from '../styles/ContactStyles'
 
 export const query = graphql`
   query ContactPageQuery {
@@ -75,68 +75,75 @@ const ContactPage = props => {
           action="/thankyou"
           onSubmit={event => useContact(event, values)}
         >
-          <fieldset className="menu">
-            <input type="hidden" name="form-name" value="Contact Form" />
-            <div>
-              <label>I'm Chris :) What's your name?</label>
-              <input
-                type="text"
-                name="name"
-                value={'...'}
-                value={values.name}
-                onChange={updateValues}
-                required
-              />
-            </div>
-
-            <div>
-              <label>What's your email?</label>
-              <input
-                type="email"
-                name="email"
-                value={'...'}
-                value={values.email}
-                onChange={updateValues}
-              />
-            </div>
-            <div>
-              <label>What's the best number to reach you on?</label>
-              <input
-                type="text"
-                name="contactNumber"
-                value={'...'}
-                value={values.contactNumber}
-                onChange={updateValues}
-              />
-            </div>
-            <div>
-              <label>Tell me a little about what you'd like to work on?</label>
-              <textarea
-                id="subject"
-                type="text"
-                name="message"
-                placeholder="Write something.."
-                value={'...'}
-                value={values.message}
-                onChange={updateValues}
-              ></textarea>
-            </div>
-
-            <label>What are you interested in?</label>
-            {services.map(node => (
-              <div key={node.node.id}>
-                <label>{`${node.node.title}`}</label>
-                <input
-                  type="checkbox"
-                  name={`service ${node.node.title}`}
-                  value={'...'}
-                  value={values.services}
-                  onChange={updateValues}
-                />
-              </div>
-            ))}
-            <button type="submit">Send</button>
-          </fieldset>
+          <div className="form-item">
+            <label className="contact-label" htmlFor="name">
+              Name:
+            </label>
+            <input
+              type="text"
+              placeholder="Your name"
+              id="name"
+              className="contact-input"
+              name="name"
+              value={'...'}
+              value={values.name}
+              onChange={updateValues}
+              required
+            />
+          </div>
+          <div className="form-item">
+            <label className="contact-label" htmlFor="email">
+              Email:
+            </label>
+            <input
+              type="email"
+              placeholder="Your email"
+              id="email"
+              className="contact-input"
+              name="email"
+              value={'...'}
+              value={values.email}
+              onChange={updateValues}
+              required
+            />
+          </div>
+          <div className="form-item">
+            <label className="contact-label" htmlFor="email">
+              Contact Number:
+            </label>
+            <input
+              type="text"
+              placeholder="Your contact number"
+              id="contactNumber"
+              className="contact-input"
+              name="contactNumber"
+              value={'...'}
+              value={values.contactNumber}
+              onChange={updateValues}
+              required
+            />
+          </div>
+          <div className="form-item">
+            <label className="contact-label" htmlFor="message">
+              Message:
+            </label>
+            <textarea
+              placeholder="Your message"
+              rows="4"
+              id="message"
+              className="contact-textarea contact-input"
+              name="message"
+              value={'...'}
+              value={values.message}
+              onChange={updateValues}
+              required
+            ></textarea>
+          </div>
+          <div className="form-item">
+            <button type="submit" value="Send" className="form-btn">
+              Send
+            </button>
+          </div>
         </ContactStyles>
       </Container>
     </Layout>
@@ -145,7 +152,7 @@ const ContactPage = props => {
 ContactPage.defaultProps = {
   data: {
     page: {
-      title: 'No title'
+      title: 'Contact'
     }
   }
 }
