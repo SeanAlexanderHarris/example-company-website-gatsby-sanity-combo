@@ -38,6 +38,7 @@ const ContactPage = props => {
     services: {},
     mapleSyrup: ''
   })
+  const { sent, error, submitContact } = useContact()
 
   if (errors) {
     return (
@@ -62,6 +63,38 @@ const ContactPage = props => {
     )
   }
 
+  if (error) {
+    return (
+      <Layout>
+        <SEO title={page.title} />
+        <Container>
+          <h1 className={responsiveTitle1}>{page.title}</h1>
+          <BlockContent blocks={page._rawBody || []} />
+          <p>
+            Something went wrong dispatching your message 📨 ... Please refresh the form & try again
+            or get in touch with me via social media 📱.
+          </p>
+        </Container>
+      </Layout>
+    )
+  }
+
+  if (sent) {
+    return (
+      <Layout>
+        <SEO title={page.title} />
+        <Container>
+          <h1 className={responsiveTitle1}>{page.title}</h1>
+          <BlockContent blocks={page._rawBody || []} />
+          <p>
+            Your message 📨 is now hurtling towards me across the internet 🌏. I'll be in touch soon
+            📱.
+          </p>
+        </Container>
+      </Layout>
+    )
+  }
+
   return (
     <Layout>
       <SEO title={page.title} />
@@ -73,7 +106,7 @@ const ContactPage = props => {
           name="Contact Form"
           method="POST"
           action="/thankyou"
-          onSubmit={event => useContact(event, values)}
+          onSubmit={event => submitContact(event, values)}
         >
           <div className="form-item">
             <label className="contact-label" htmlFor="name">
@@ -123,6 +156,18 @@ const ContactPage = props => {
               required
             />
           </div>
+          <div className="form-item-honeypot">
+            <label className="contact-label" htmlFor="mapleSyrup"></label>
+            <input
+              type="text"
+              id="mapleSyrup"
+              className="contact-input"
+              name="mapleSyrup"
+              value={'...'}
+              value={values.mapleSyrup}
+              onChange={updateValues}
+            />
+          </div>
           <div className="form-item">
             <label className="contact-label" htmlFor="message">
               Message:
@@ -141,7 +186,7 @@ const ContactPage = props => {
           </div>
           <div className="form-item">
             <button type="submit" value="Send" className="form-btn">
-              Send
+              {!sent ? 'Send 📩' : 'Sent 📨'}
             </button>
           </div>
         </ContactStyles>
