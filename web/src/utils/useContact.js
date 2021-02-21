@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 export default function useContact() {
   const [sent, setSent] = useState(false)
+  const [error, setError] = useState(false)
 
   async function submitContact(event, values) {
     event.preventDefault()
@@ -34,6 +35,7 @@ export default function useContact() {
     if (res.status >= 400 && res.status < 600) {
       console.log("It didn't work..")
       setSent(false)
+      setError(true)
     } else {
       console.log('It worked..')
       setSent(true)

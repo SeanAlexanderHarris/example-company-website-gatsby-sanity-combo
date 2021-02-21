@@ -38,7 +38,7 @@ const ContactPage = props => {
     services: {},
     mapleSyrup: ''
   })
-  const { sent, submitContact } = useContact()
+  const { sent, error, submitContact } = useContact()
 
   if (errors) {
     return (
@@ -60,6 +60,22 @@ const ContactPage = props => {
   if (!services) {
     throw new Error(
       'Missing "services" data. Open the studio at http://localhost:3333 and add "Services" data and restart the development server.'
+    )
+  }
+
+  if (error) {
+    return (
+      <Layout>
+        <SEO title={page.title} />
+        <Container>
+          <h1 className={responsiveTitle1}>{page.title}</h1>
+          <BlockContent blocks={page._rawBody || []} />
+          <p>
+            Something went wrong dispatching your message 📨 ... Please refresh the form & try again
+            or get in touch with me via social media 📱.
+          </p>
+        </Container>
+      </Layout>
     )
   }
 
