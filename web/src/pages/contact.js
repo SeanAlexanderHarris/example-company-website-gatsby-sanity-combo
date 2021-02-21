@@ -133,7 +133,6 @@ const ContactPage = props => {
               value={'...'}
               value={values.mapleSyrup}
               onChange={updateValues}
-              required
             />
           </div>
           <div className="form-item">
