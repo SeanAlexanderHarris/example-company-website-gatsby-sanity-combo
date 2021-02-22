@@ -39,7 +39,7 @@ exports.handler = async (event, context) => {
   const sgMail = require('@sendgrid/mail')
   sgMail.setApiKey(`${process.env.SENDGRID_API_KEY}`)
   const msg = {
-    to: 'chrisbellpt@info.com', // Change to your recipient
+    to: 'info@chrisbellpt.com', // Change to your recipient
     from: 'sean.alexander.harris.29@googlemail.com', // Change to your verified sender
     subject: 'bealthy.com Enquiry',
     text: 'Early to bed & early to rise makes a man healthy, bealthy, & wise',
