@@ -8,6 +8,9 @@ module.exports = {
     'gatsby-plugin-postcss',
     'gatsby-plugin-react-helmet',
     {
+      resolve: `gatsby-plugin-typescript`
+    },
+    {
       resolve: 'gatsby-source-sanity',
       options: {
         projectId,
@@ -29,7 +32,7 @@ module.exports = {
  * with directions to enter the info manually or in the environment.
  */
 
-function requireConfig (path) {
+function requireConfig(path) {
   try {
     return require(path)
   } catch (e) {

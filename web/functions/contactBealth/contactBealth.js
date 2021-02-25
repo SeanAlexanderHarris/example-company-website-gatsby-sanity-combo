@@ -21,7 +21,7 @@ exports.handler = async (event, context) => {
     }
   }
   // Validate the data coming in is correct
-  const requiredFields = ['name', 'emailAddress']
+  const requiredFields = ['name', 'email']
 
   for (const field of requiredFields) {
     console.log(`Validating ${field} : ${body[field]} is truthy..`)

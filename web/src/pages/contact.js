@@ -5,11 +5,11 @@ import BlockContent from '../components/block-content'
 import GraphQLErrorList from '../components/graphql-error-list'
 import SEO from '../components/seo'
 import Layout from '../containers/layout'
-import useForm from '../utils/useForm'
-import useContact from '../utils/useContact'
+import useForm from '../utils/useForm.ts'
+import useContact from '../utils/useContact.ts'
 
 import { responsiveTitle1 } from '../components/typography.module.css'
-import ContactStyles from '../styles/ContactStyles'
+import ContactStyles from '../styles/ContactStyles.ts'
 
 export const query = graphql`
   query ContactPageQuery {
@@ -35,7 +35,6 @@ const ContactPage = props => {
     email: '',
     message: '',
     contactNumber: '',
-    services: {},
     mapleSyrup: ''
   })
   const { sent, error, submitContact } = useContact()
